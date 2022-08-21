@@ -1,0 +1,27 @@
+# @name login
+POST http://localhost/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "test@test.com",
+    "password": "test1234"
+}
+
+###
+@authToken = {{login.response.body.$.access_token}}
+
+GET http://localhost/api/start?access_token={{authToken}}
+Authorization: Bearer {{authToken}}
+
+
+
+###
+POST http://localhost/api/auth/me
+Authorization: Bearer {{authToken}}
+
+###
+GET http://localhost/api/auth/me?access_token={{authToken}}
+
+###
+POST http://localhost/api/auth/refresh
+Authorization: Bearer {{authToken}}

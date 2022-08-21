@@ -1,0 +1,27 @@
+├── Http
+│   ├── Controllers
+│   │   ├── Api
+│   │   │   ├── deleteHistoryController.php
+│   │   │   ├── historyController.php
+│   │   │   ├── playController.php
+│   │   │   ├── scoreController.php
+│   │   │   └── startController.php
+│   │   └── boardController.php
+│   ├── Kernel.php
+│   └── Requests
+│       ├── CardRequest.php
+│       └── GameRequest.php
+├── Models
+│   ├── LogModel.php
+│   ├── User.php
+│   ├── cardModel.php
+│   ├── configModel.php
+│   ├── gameModel.php
+│   └── historyModel.php
+├── Services
+│   ├── cpuStorategeService.php
+│   └── gameService.php
+└── States
+    ├── gameState.php
+    └── userState.php
+
