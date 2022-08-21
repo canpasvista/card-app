@@ -38,7 +38,7 @@
     @endforeach
         </tr>
         <tr>
-        <th style="padding:8px;width:100px;">勝率回数　</th>
+        <th style="padding:8px;width:100px;">勝率　</th>
     @foreach ($toukei2 as $obj)
        <td style="width:50px">{{$obj->perwin}}</td>
     @endforeach

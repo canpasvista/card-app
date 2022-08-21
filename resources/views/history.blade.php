@@ -5,11 +5,17 @@
     @php
     $game_id = session('game_id');
     @endphp
+
+@include('parts.games_toukei', ['games' => $games])
+
+<table>
+    <tr>
 @foreach ($games as $game)
     @php
     $n=0;
     $siai = "第".$game->game_id."試合";
     @endphp
+    <td>
     <div style="margin-top:16px;">
             <div class="box_head"></div>
             <div class="box_content">{{$siai}} <a href="/api/deletehistory?game_id={{$game->game_id}}">削除する</a></div>
@@ -24,7 +30,10 @@
             @include('parts.win_lose', ['history' => $history])</div>
         </div>
     @endforeach
+    </td>
     @endforeach
+</tr>
+</table>
     <div style="margin-left:auto;margin-right:auto;">
         
     <ul class="pagination" style="width:60vw">

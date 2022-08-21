@@ -20,14 +20,15 @@ class historyController extends Controller
      */
     public function index(
         GameRequest $request
-    )
-    {
+    ) {
         //ページネーション付きで履歴の取得
-        $games = gameModel::orderBy('id', 'desc')->paginate(3);
+        $games = gameModel::orderBy('id', 'desc')->paginate(12);
 
         $page = \Request::input('page');
-        if( empty($page))$page = 1;
+        if (empty($page)) {
+            $page = 1;
+        }
 
-        return view('history', compact('games','page'));
+        return view('history', compact('games', 'page'));
     }
 }
