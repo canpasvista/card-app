@@ -6,7 +6,6 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 
-
 class accessTest extends TestCase
 {
     use WithoutMiddleware;
@@ -16,8 +15,8 @@ class accessTest extends TestCase
     protected function setUp(): Void
     {
         // 必ずparent::setUp()を呼び出す
-        parent::setUp(); 
-        $response = $this->json('POST','/api/auth/login', [
+        parent::setUp();
+        $response = $this->json('POST', '/api/auth/login', [
             'email' => 'test@test.com',
             'password' => 'test1234'
         ]);
@@ -56,7 +55,7 @@ class accessTest extends TestCase
      */
     public function Startページテスト()
     {
-        $response = $this->getWithAuth('/api/start');
+        $response = $this->getWithAuth('/api/openboard');
         $response->assertStatus(200);
     }
     /**
@@ -65,14 +64,46 @@ class accessTest extends TestCase
      */
     public function scoreページテスト()
     {
-        $game_id  = 10;
-        $response = $this->withSession(['game_id'=>$game_id])
-                        ->postWithAuth('/api/score');
+        $game_id  = 73;
+        $response = $this->getWithAuth('/score?game_id='.$game_id);
+
 
         $response->assertStatus(200);
+    }
+    /**
+     * @test
+     * @group testing
+     */
+    public function getscoreページテスト()
+    {
+        $game_id  = 73;
+        $response = $this->withSession( [ 'game_id' => $game_id ])
+                        ->getWithAuth('/api/getscore?game_id='.$game_id);
 
-        $response = $this->withSession(['game_id'=>$game_id])
-                        ->getWithAuth('/api/score');
+
+        $response->assertStatus(200);
+    }
+    /**
+     * @test
+     * @group testing
+     */
+    public function getcardページテスト()
+    {
+        $game_id  = 73;
+        $response = $this->getWithAuth('/api/getcard?game_id='.$game_id);
+
+
+        $response->assertStatus(200);
+    }
+    /**
+     * @test
+     * @group testing
+     */
+    public function getstateページテスト()
+    {
+        $game_id  = 73;
+        $response = $this->getWithAuth('/api/getstate?game_id='.$game_id);
+
 
         $response->assertStatus(200);
     }

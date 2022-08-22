@@ -9,6 +9,7 @@ use App\Services\gameService;
 use App\States\gameState;
 use App\States\userState;
 use App\Models\gameModel;
+use App\Http\Requests\GameRequest;
 
 class scoreController extends Controller
 {
@@ -51,20 +52,11 @@ class scoreController extends Controller
     }
 
     public function score(
-        Request $request
+        GameRequest $request
     ){
-        //入力値のvalidation
-        $rule = [
-            'game_id' => 'required|integer'
-        ];
-        $this->validate($request, $rule);
 
-        $game_id = ($request->input("game_id"));
-        if (session('game_id') != $game_id) {
-            throw new \Exception("invalidate game_id");
-        }
-
-        $gm = gameModel::find($game_id);
+        $gm = $request->makeGame();
+        //gameModel::find($game_id);
 
         return [$gm->histories->toArray()];
     }
