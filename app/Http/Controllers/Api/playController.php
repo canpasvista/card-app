@@ -95,7 +95,7 @@ class playController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function play(
+    public function playCard(
         gameService $gameService,
         GameRequest $request
     ) {

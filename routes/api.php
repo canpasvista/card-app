@@ -25,19 +25,19 @@ Route::group([
     Route::middleware(['cors'])->group(function () {
         Route::get('openboard', 'App\Http\Controllers\Api\startController@openboard');
         Route::get('getscore',  'App\Http\Controllers\Api\scoreController@score');
-        Route::get('playcard',  'App\Http\Controllers\Api\playController@play');
+        Route::get('play',      'App\Http\Controllers\Api\playController@index');
+        Route::post('play',     'App\Http\Controllers\Api\playController@store');
+        Route::get('playcard',  'App\Http\Controllers\Api\playController@playCard');
         Route::get('getcard',   'App\Http\Controllers\Api\playController@getCard');
         Route::get('getstate',  'App\Http\Controllers\Api\playController@getGameState');
 
-        Route::resource('start','App\Http\Controllers\Api\startController');
-        Route::resource('play', 'App\Http\Controllers\Api\playController');
         Route::get('deletehistory', 'App\Http\Controllers\Api\deleteHistoryController@delete');
     });
 });
-Route::group([
-    'prefix' => 'auth',
-    'middleware' => 'auth:api'
-], function () {
-    Route::post('logout', 'App\Http\Controllers\AuthController@logout');
-    Route::post('refresh', 'App\Http\Controllers\AuthController@refresh');
-});
+// Route::group([
+//     'prefix' => 'auth',
+//     'middleware' => 'auth:api'
+// ], function () {
+//     Route::post('logout', 'App\Http\Controllers\AuthController@logout');
+//     Route::post('refresh', 'App\Http\Controllers\AuthController@refresh');
+// });

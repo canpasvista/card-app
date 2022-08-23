@@ -18,7 +18,11 @@
     <td>
     <div style="margin-top:16px;padding:8px;">
             <div class="box_head"></div>
-            <div class="box_content">{{$siai}} <a href="/api/deletehistory?game_id={{$game->game_id}}">削除する</a></div>
+            <div class="box_content">{{$siai}} 
+                @if ($game->game_id != $game_id)
+                <a href="/api/deletehistory?game_id={{$game->game_id}}">削除する</a>
+                @endif
+            </div>
     </div>
     @foreach ($game->histories as $history)
     @php
