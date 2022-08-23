@@ -22,6 +22,7 @@ class gameState
     }
     /**
      * セッションからgame_idを取得する
+     * @return int game_id
      */
     public function getGameId()
     {
@@ -31,10 +32,17 @@ class gameState
         }
         return $game_id;
     }
+    /**
+     * game_no をセッションに追加する
+     */
     public function setGameNo($no)
     {
         session(["game_no"=>$no]);
     }
+    /**
+     * セッションからgame_noを追加する
+     * @return int game_no
+     */
     public function getGameNo()
     {
         $game_no = session('game_no');
@@ -43,19 +51,37 @@ class gameState
         }
         return $game_no;
     }
+    /**
+     * game_state をセッションに追加する
+     */
     public function setState($state)
     {
         session(["game_state"=>$state]);
     }
+    /**
+     * セッションからgame_state を取得する
+     * @return int game_no
+     */
     public function getState()
     {
         return session("game_state");
     }
-    public function setCardState($cards)
-    {
-        session(["cards"=>json_encode($cards)]);
+    public function setMessage(string $message){
+        session(['message'=> $message]);
+    }
+    public function clearMessage(){
+        session(['message'=> '']);
+    }
+    public function setScore($score){
+        session(['score_obj'=> $score]);
+    }
+    public function setScores(string $score){
+        session(['scores'=> $score]);
     }
 
+    /**
+     * 使ったカードを使用済みにする
+     */
     public function removeCardByIndex($index, $user_or_cpu)
     {
         DB::beginTransaction();
@@ -80,6 +106,10 @@ class gameState
         }
         return $card;
     }
+    /**
+     * ユーザーの使っていないカードの枚数を取得する
+     * @return int count
+     */
     public function countCardRemain()
     {
         return cardModel::where(
@@ -91,6 +121,10 @@ class gameState
         )->get()
          ->count();
     }
+    /**
+     * 使っていないカードを取得する
+     * @return int count
+     */
     public function getCardRemain($user_or_cpu=1, $use=0)
     {
         $remain = cardModel::where(
@@ -102,6 +136,10 @@ class gameState
         )->get();
         return ($remain);
     }
+    /**
+     * indexからcardModelを取得する
+     * @return cardModel
+     */
     public function getCardFromIndex($index, $user_or_cpu)
     {
         $cards = $this->getCardRemain($user_or_cpu);
@@ -113,6 +151,10 @@ class gameState
         }
         return null;
     }
+    /**
+     * 未使用カードの最初のcardModelを取得する
+     * @return cardModel
+     */
     public function getCardFromFirst($user_or_cpu)
     {
         $cards = $this->getCardRemain($user_or_cpu);
@@ -122,22 +164,10 @@ class gameState
         }
         return null;
     }
-    public function updateCard($game_id, $user_or_cpu, $cards_index)
-    {
-        DB::beginTransaction();
-        try {
-            $model = cardModel::lockForUpdate()->where([
-                "game_id" => $game_id,
-                "user_or_cpu" => $user_or_cpu,
-                "sort" => $card_index
-            ])->first();
-            $model->use= 1;
-            $model->save();
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollback();
-        }
-    }
+
+    /**
+     * カードデータを初期化する
+     */
     public function initCard($game_id, $user_or_cpu, $cards)
     {
         foreach ($cards as $key => $card) {

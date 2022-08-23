@@ -8,7 +8,6 @@ use App\Http\Requests\GameRequest;
 use App\Http\Requests\CardRequest;
 use App\Models\gameModel;
 use App\Services\gameService;
-use App\States\userState;
 use App\States\gameState;
 use Session;
 use Validator;
@@ -18,16 +17,13 @@ use Illuminate\Support\Facades\Auth;
 class playController extends Controller
 {
     private $gameService;
-    private $userState;
     private $gameState;
 
     public function __construct(
         gameService $gameService,
-        userState $userState,
         gameState $gameState
     ) {
         $this->gameService = $gameService;
-        $this->userState   = $userState;
         $this->gameState   = $gameState;
     }
 
@@ -78,7 +74,7 @@ class playController extends Controller
         $history = $this->gameService->Play($card_index);
 
         //結果
-        $this->userState->setScore($history);
+        $this->gameState->setScore($history);
 
         //カードが残っているか？残ってなければステータスを終了に変更
         if ($this->gameState->countCardRemain() == 0) {

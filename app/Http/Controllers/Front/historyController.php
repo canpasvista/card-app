@@ -22,7 +22,8 @@ class historyController extends Controller
         GameRequest $request
     ) {
         //ページネーション付きで履歴の取得
-        $games = gameModel::orderBy('id', 'desc')->paginate(12);
+        $games = gameModel::orderBy('id', 'desc')
+                ->paginate(config('game.history_paging'));
 
         $page = \Request::input('page');
         if (empty($page)) {

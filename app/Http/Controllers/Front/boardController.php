@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\GameRequest;
 use App\Services\gameService;
 use App\Models\gameModel;
-use App\States\userState;
 use App\States\gameState;
 use Validator;
 use Session;

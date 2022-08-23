@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\States\gameState;
 use App\Models\gameModel;
-use App\States\userState;
 use App\Models\configModel;
 use App\Models\cardModel;
 use App\Models\historyModel;
@@ -21,14 +20,12 @@ class gameService
     public $gameState;
     public $game_id;
     private $gameModel;
-    private $userState;
     private $historyModel;
     private $cpuStoratege;
 
     public function __construct(
     ) {
         $this->gameModel= new gameModel();
-        $this->userState =new userState();
         $this->historyModel = new historyModel();
         $this->cpuStoratege = new cpuStorategeService();
 
@@ -42,8 +39,8 @@ class gameService
      */
     public function newGame()
     {
-        $this->userState->setScore('');
-        $this->userState->clearMessage();
+        $this->gameState->setScore('');
+        $this->gameState->clearMessage();
 
         $this->gameState->setState("open");
 
@@ -106,8 +103,6 @@ class gameService
         $this->gameState->initCard($this->game_id, 1, $this->shuffle_card());
         $this->gameState->initCard($this->game_id, 0, $this->shuffle_card());
 
-        $cards = $this->gameState->getCardRemain();
-        $this->gameState->setCardState($cards);
     }
 
     /*
@@ -190,8 +185,6 @@ class gameService
             $this->gameState->removeCardByIndex($user_index, 1);
             $this->cpuStoratege->afterPlay($card_cpu, $this->gameState);
 
-            $cards = $this->gameState->getCardRemain();
-            $this->gameState->setCardState($cards);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
@@ -207,14 +200,19 @@ class gameService
      */
     public function Battle(cardModel $card_cpu, cardModel $user_card)
     {
+        //game no の取得
         $this->gameModel = GameModel::find($this->getGameId());
-        $game_no = $this->gameModel->addGameNo($this->getGameId());
+        $game_no         = $this->gameModel->addGameNo($this->getGameId());
         $this->gameState->setGameNo($game_no);
 
-        $point  = $this->checkPlay($card_cpu->no, $user_card->no);
+        //カードの比較
+        $point   = $this->checkPlay($card_cpu->no, $user_card->no);
+
+        //履歴へ結果を追記する
         $this->historyModel->add($this->getGameId(), $game_no, $user_card->no, $user_card->color, $card_cpu->no, $card_cpu->color, $point);
         $history = $this->historyModel->getOne($this->getGameId(), $game_no);
 
+        //統計情報の追加
         toukei2Model::add($user_card->no, $point);
 
 
@@ -252,7 +250,7 @@ class gameService
             }
         }
         shuffle($cards);
-        $cards = array_slice($cards, 0, 13);
+        $cards = array_slice($cards, 0, config('game.play_card_num'));
 
         return $cards;
     }

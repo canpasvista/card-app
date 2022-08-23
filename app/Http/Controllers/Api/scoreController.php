@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\GameRequest;
 use App\Services\gameService;
 use App\States\gameState;
-use App\States\userState;
 use App\Models\gameModel;
 use Session;
 
