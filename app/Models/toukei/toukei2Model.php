@@ -11,6 +11,9 @@ class toukei2Model extends Model
     use HasFactory;
     protected $table = "toukei2";
     protected $fillable = ["no","use","win","perwin"];
+    /**
+     * 統計情報の追加
+     */
     public static function add($no, $point)
     {
         DB::beginTransaction();

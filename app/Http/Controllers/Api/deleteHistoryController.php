@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\GameRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\historyModel;
 use App\Models\gameModel;
-use Illuminate\Support\Facades\DB;
-use App\Http\Requests\GameRequest;
 
 class deleteHistoryController extends Controller
 {

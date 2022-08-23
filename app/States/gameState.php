@@ -13,10 +13,16 @@ use Illuminate\Support\Facades\DB;
 
 class gameState
 {
+    /**
+     * game_idをセッションに追加する
+     */
     public function setGameId($id)
     {
         session(["game_id"=>$id]);
     }
+    /**
+     * セッションからgame_idを取得する
+     */
     public function getGameId()
     {
         $game_id = session('game_id');
@@ -24,6 +30,18 @@ class gameState
             return null;
         }
         return $game_id;
+    }
+    public function setGameNo($no)
+    {
+        session(["game_no"=>$no]);
+    }
+    public function getGameNo()
+    {
+        $game_no = session('game_no');
+        if (empty($game_no)) {
+            return 0;
+        }
+        return $game_no;
     }
     public function setState($state)
     {
@@ -70,7 +88,8 @@ class gameState
                 ["user_or_cpu" ,"=", 1],
                 ["game_state_id" ,"=", $this->getGameId()],
             ]
-        )->get()->count();
+        )->get()
+         ->count();
     }
     public function getCardRemain($user_or_cpu=1, $use=0)
     {
@@ -121,33 +140,17 @@ class gameState
     }
     public function initCard($game_id, $user_or_cpu, $cards)
     {
-        if ($user_or_cpu == 1) {
-            foreach ($cards as $key => $card) {
-                cardModel::create(
-                    [
-                        "game_state_id" => $game_id,
-                        "no" => $card['no'],
-                        "color" => $card['color'],
-                        "sort" => $key,
-                        "use"  => 0,
-                        "user_or_cpu" => $user_or_cpu
-                    ]
-                );
-            }
-        }
-        if ($user_or_cpu == 0) {
-            foreach ($cards as $key => $card) {
-                cardModel::create(
-                    [
-                        "game_state_id" => $game_id,
-                        "no" => $card['no'],
-                        "color" => $card['color'],
-                        "sort" => $key,
-                        "use"  => 0,
-                        "user_or_cpu" => $user_or_cpu
-                    ]
-                );
-            }
+        foreach ($cards as $key => $card) {
+            cardModel::create(
+                [
+                    "game_state_id" => $game_id,
+                    "no" => $card['no'],
+                    "color" => $card['color'],
+                    "sort" => $key,
+                    "use"  => 0,
+                    "user_or_cpu" => $user_or_cpu
+                ]
+            );
         }
     }
 }

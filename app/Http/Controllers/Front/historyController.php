@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\GameRequest;
 use App\Models\historyModel;
 use App\Services\gameService;
 use App\Models\gameModel;
-use App\Http\Requests\GameRequest;
 
 class historyController extends Controller
 {

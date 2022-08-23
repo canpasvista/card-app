@@ -16,7 +16,7 @@
     $siai = "第".$game->game_id."試合";
     @endphp
     <td>
-    <div style="margin-top:16px;">
+    <div style="margin-top:16px;padding:8px;">
             <div class="box_head"></div>
             <div class="box_content">{{$siai}} <a href="/api/deletehistory?game_id={{$game->game_id}}">削除する</a></div>
     </div>
@@ -24,9 +24,10 @@
     @php
     $n++;
     @endphp
-        <div>
+        <div style="padding:4px;">
             <div class="box_head"></div>
-            <div class="box_content">{{$n}}回戦　
+            <div class="box_content">
+                <div style="display:inline-block;width:50px;"> {{$n}}回戦</div>　
             @include('parts.win_lose', ['history' => $history])</div>
         </div>
     @endforeach

@@ -11,6 +11,10 @@ class toukei1Model extends Model
     use HasFactory;
     protected $table = "toukei1";
     protected $fillable = ["time","cnt"];
+
+    /**
+     * 統計情報の追加
+     */
     public static function add($time0, $time1)
     {
         $time      = ($time0->diffInSeconds($time1));

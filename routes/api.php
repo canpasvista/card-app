@@ -22,21 +22,17 @@ Route::group(['prefix' => 'auth'],function(){
 Route::group([
     'middleware' => 'auth:api'
 ], function () {
-    Route::get('openboard', 'App\Http\Controllers\Api\startController@openboard');
-    Route::get('getscore', 'App\Http\Controllers\Api\scoreController@score');
-    Route::get('playcard', 'App\Http\Controllers\Api\playController@play');
-    Route::get('getcard', 'App\Http\Controllers\Api\playController@getCard');
-    Route::get('getstate', 'App\Http\Controllers\Api\playController@getGameState');
-
-    Route::resource('start', 'App\Http\Controllers\Api\startController');
-//    Route::resource('score', 'App\Http\Controllers\Api\scoreController');
-//    Route::resource('history', 'App\Http\Controllers\Api\historyController');
     Route::middleware(['cors'])->group(function () {
+        Route::get('openboard', 'App\Http\Controllers\Api\startController@openboard');
+        Route::get('getscore',  'App\Http\Controllers\Api\scoreController@score');
+        Route::get('playcard',  'App\Http\Controllers\Api\playController@play');
+        Route::get('getcard',   'App\Http\Controllers\Api\playController@getCard');
+        Route::get('getstate',  'App\Http\Controllers\Api\playController@getGameState');
+
+        Route::resource('start','App\Http\Controllers\Api\startController');
         Route::resource('play', 'App\Http\Controllers\Api\playController');
+        Route::get('deletehistory', 'App\Http\Controllers\Api\deleteHistoryController@delete');
     });
-
-    Route::get('deletehistory', 'App\Http\Controllers\Api\deleteHistoryController@delete');
-
 });
 Route::group([
     'prefix' => 'auth',

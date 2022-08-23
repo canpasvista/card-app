@@ -27,8 +27,8 @@ class playController extends Controller
         gameState $gameState
     ) {
         $this->gameService = $gameService;
-        $this->userState =$userState;
-        $this->gameState =$gameState;
+        $this->userState   = $userState;
+        $this->gameState   = $gameState;
     }
 
     /**

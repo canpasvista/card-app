@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Front;
 
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\GameRequest;
 use App\Services\gameService;
 use App\Models\gameModel;
-use Illuminate\Support\Facades\Http;
 use App\States\userState;
 use App\States\gameState;
-use App\Http\Requests\GameRequest;
 use Validator;
 use Session;
 

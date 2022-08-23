@@ -13,15 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [App\Http\Controllers\boardController::class,'top'])->name('top');
+Route::get('/', [App\Http\Controllers\Front\boardController::class,'top'])->name('top');
 Route::group([
     'middleware' => 'auth:api'
 ], function () {
-    Route::get('/board',   [App\Http\Controllers\boardController::class,'index'])->name('board');
-    Route::get('/score',   [App\Http\Controllers\boardController::class,'score'])->name('score');
-    Route::get('/history', [App\Http\Controllers\Api\historyController::class,'index'])->name('history');
-    Route::get('/toukei',  [App\Http\Controllers\Api\toukeiController::class,'index'])->name('toukei');
+    Route::get('/board',   [App\Http\Controllers\Front\boardController::class,'index'])->name('board');
+    Route::get('/score',   [App\Http\Controllers\Front\boardController::class,'score'])->name('score');
+    Route::get('/history', [App\Http\Controllers\Front\historyController::class,'index'])->name('history');
+    Route::get('/toukei',  [App\Http\Controllers\Front\toukeiController::class,'index'])->name('toukei');
 });
-Route::get('/logout2', [App\Http\Controllers\boardController::class, 'logout'])->name('logout');
+Route::get('/logout2', [App\Http\Controllers\Front\boardController::class, 'logout'])->name('logout');
 
 Auth::routes();

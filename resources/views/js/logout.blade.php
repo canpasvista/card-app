@@ -5,8 +5,8 @@
 function logout() {
     token = "{{$jwt}}";
     $.ajax({
-            type: 'post',
-            url: 'http://localhost/api/auth/logout',
+            type: 'get',
+            url: 'http://localhost/logout2',
             dataType: 'json',
             beforeSend: function(xhr, settings) { xhr.setRequestHeader('Authorization', 'Bearer ' + token); }
         })
@@ -16,7 +16,7 @@ function logout() {
         })
         .fail((data) => {
             console.log(data);
-            //window.location.reload();
+            window.location.reload();
         });
 };
 

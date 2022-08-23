@@ -1,12 +1,14 @@
+@inject('gs','App\States\gameState')
+
 @extends('layouts.game')
 
 @section('content')
         @csrf
         @php
-            $game_id  = session('game_id');
-            $game_no  = session('game_no');
-            $game_state = session('game_state');
-            $jwt      = session('jwt');
+            $game_id    = $gs->getGameId();
+            $game_no    = $gs->getGameNo();
+            $game_state = $gs->getState();
+            $jwt        = session('jwt');
         @endphp
         @if (isset($game_id))
             @if (isset($history) )
