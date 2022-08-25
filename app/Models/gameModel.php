@@ -101,4 +101,17 @@ class gameModel extends Model
                     ->where('use', 0)
                     ->orderBy('sort', 'asc');
     }
+
+    public function drop($game_id)
+    {
+        DB::beginTransaction();
+        try {
+            historyModel::where('game_state_id', $game_id)->delete();
+            gameModel::where("game_id", $game_id)->delete();
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+        }
+    }
 }
