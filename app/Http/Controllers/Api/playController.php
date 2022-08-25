@@ -47,13 +47,8 @@ class playController extends Controller
      * @return Illuminate\View\View
      */
     public function store(
-        Request $request
+        GameRequest $request
     ) {
-        //入力値のvalidation
-        $rule = [
-            'card' => 'required|integer'
-        ];
-        $this->validate($request, $rule);
 
         //ゲームが開始状態でなければトップに戻る
         if ($this->gameService->checkOpenGame() == false) {
@@ -112,9 +107,8 @@ class playController extends Controller
         gameModel $gameModel,
         GameRequest $request
     ) {
-        $gm = $request->makeGame();
-
         //未使用カードの取得
+        $gm = $request->makeGame();
         return($gm->cards->toArray());
     }
 
@@ -125,7 +119,6 @@ class playController extends Controller
 
         //ゲームステータスの取得
         $gm = $request->makeGame();
-
         if (count($gm->cards) == 0) {
             $this->gameService->endGame();
         }

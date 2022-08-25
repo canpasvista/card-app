@@ -34,10 +34,3 @@ Route::group([
         Route::get('deletehistory', 'App\Http\Controllers\Api\deleteHistoryController@delete');
     });
 });
-// Route::group([
-//     'prefix' => 'auth',
-//     'middleware' => 'auth:api'
-// ], function () {
-//     Route::post('logout', 'App\Http\Controllers\AuthController@logout');
-//     Route::post('refresh', 'App\Http\Controllers\AuthController@refresh');
-// });

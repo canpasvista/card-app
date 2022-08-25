@@ -24,7 +24,7 @@ class deleteHistoryController extends Controller
         historyModel $history
     ) {
         $game_id = $request->input('game_id');
-        $gm = $request->makeGame();
+        $gm      = $request->makeGame();
         $gm->drop($game_id);
 
         return redirect('/history');
