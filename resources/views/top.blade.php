@@ -44,10 +44,10 @@ $jwt     = session('jwt');
     @if (empty($jwt))
     E-Mail : <input type="text" id="id" value="test@test.com"><br>
     PASSWORD : <input type="text" id="password" value="test1234"><br>
-    <input  class="btn btn-primary" style="width:340px;" type="button" onClick="login()" value="login">
+    <input  id="login" class="btn btn-primary" style="width:340px;" type="button" onClick="login()" value="login">
     @endif
     @if (!empty($jwt))
-    <input  class="btn btn-primary" style="width:340px;" type="button" onClick="logout()" value="logout">
+    <input  id="logout" class="btn btn-primary" style="width:340px;" type="button" onClick="logout()" value="logout">
     @endif
 </div>
 </div>

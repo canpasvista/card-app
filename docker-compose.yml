@@ -84,6 +84,9 @@ services:
             - '/dev/shm:/dev/shm'
         networks:
             - sail
+        ports:
+            - 4444:4444
+            - 5900:5900
 networks:
     sail:
         driver: bridge
